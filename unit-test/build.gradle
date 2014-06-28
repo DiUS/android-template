@@ -1,8 +1,8 @@
 apply plugin: 'groovy'
 
-jvmsrc{
+jvmsrc {
   packageName 'au.com.dius.android.template'
-  includeKeeps true
+  includeKeep true
 }
 
 project.ext {

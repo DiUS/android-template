@@ -1,25 +1,24 @@
 buildscript {
-    repositories {
-        mavenCentral()
-        jcenter()
+  repositories {
+    mavenCentral()
+    jcenter()
 
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:0.11.2'
-        classpath "com.github.adrianbk:gradle-jvmsrc-plugin:0.6"
-    }
+  }
+  dependencies {
+    classpath 'com.android.tools.build:gradle:0.11.2'
+    classpath "com.github.adrianbk:gradle-jvmsrc-plugin:0.6"
+  }
 }
 
-subprojects{
-    apply plugin: 'com.github.adrianbk.jvmsrc'
+subprojects {
+  apply plugin: 'com.github.adrianbk.jvmsrc'
 }
-
 
 allprojects {
-    repositories {
-        mavenCentral()
-        jcenter()
-    }
+  repositories {
+    mavenCentral()
+    jcenter()
+  }
 }
 
 task wrapper(type: Wrapper) {

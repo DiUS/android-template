@@ -13,6 +13,6 @@ public class ApplicationTest {
   public void shouldExpectMoreCodeAndLessReadabilityWithJunitTypeTests(){
     Application application = mock(Application.class);
     when(application.getName()).thenReturn("Sure thing");
-    assertThat(application.getName(), is("Sure things"));
+    assertThat(application.getName(), is("Sure thing"));
   }
 }
