@@ -4,4 +4,4 @@ android:
     - build-tools-19.0.2
 
 script:
-  - TERM=dumb ./gradlew clean test -i
+  - TERM=dumb ./gradlew clean build -i
