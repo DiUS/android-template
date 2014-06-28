@@ -3,7 +3,7 @@ android-template
 [![Build Status](https://travis-ci.org/DiUS/android-template.png?branch=master)](https://travis-ci.org/DiUS/android-template)
 
 
-A android template project with the following:
+An android template project with the following:
 
 - Spock unit testing
 - Junit unit tests
