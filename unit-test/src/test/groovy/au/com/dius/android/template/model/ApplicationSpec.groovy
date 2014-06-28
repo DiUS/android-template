@@ -8,6 +8,6 @@ class ApplicationSpec extends Specification {
     when:
       def app = new Application(name: 'someApp', released: new Date(), version: '1.0')
     then:
-      app.name == 'someApps'
+      app.name == 'someApp'
   }
 }
