@@ -6,7 +6,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:0.11.2'
-        classpath "org.ajar.gradle:gradle-jvm-src-plugin:0.4"
+        classpath "org.ajar.gradle:gradle-jvm-src-plugin:0.5"
     }
 }
 
