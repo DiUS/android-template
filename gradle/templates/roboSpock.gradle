@@ -1,0 +1,103 @@
+ext {
+  groovyVersion = '2.3.3'
+  spockVersion = '0.7-groovy-2.0'
+  roboSpockVersion = '0.4.4'
+  sdkDir = project(project.ext.robospock).android.sdkDirectory
+}
+
+buildscript {
+  repositories {
+    mavenLocal()
+    mavenCentral()
+  }
+  dependencies {
+    classpath "org.robospock:robospock-plugin:0.4.0"
+  }
+}
+
+repositories {
+  mavenCentral()
+  //Again the robospock-plugin does not add all the correct android dependencies
+  maven { url "${sdkDir}/extras/android/m2repository" }
+  maven { url "${sdkDir}/extras/google/m2repository" }
+}
+
+apply plugin: 'groovy'
+
+dependencies {
+  compile "org.codehaus.groovy:groovy-all:$groovyVersion"
+  compile "org.spockframework:spock-core:$spockVersion"
+  compile "org.robospock:robospock:$roboSpockVersion"
+}
+
+// Disable the default test task otherwise commandline build fails because
+// gradle test task tries to run the specs as if they were standard spock tests
+test.onlyIf { false }
+
+/**
+ * The findCompileDependencies method of the org.robospock:robospock-plugin does not work with the
+ * latest gradle and android build tools.
+ * Consider fixing the plugin and submitting
+ */
+org.robospock.RobospockAction.metaClass.findCompileDependencies = { Project androidProject ->
+  androidProject.configurations.all.find {
+    it.name == 'compile'
+  }.getAllDependencies()
+}
+
+/**
+ * The findCompileDependencies execute of the org.robospock:robospock-plugin does not take into account
+ * that the generated variants and placed in the 'generated' directory.
+ * Consider fixing the plugin and submitting
+ */
+org.robospock.RobospockAction.metaClass.execute = { Project project ->
+  def androidProject = project.project(project.ext.robospock)
+
+  // collect and extract compiled classes in library project
+  def subprojects = getSubprojects(androidProject)
+
+  // collect and forward all maven dependencies
+  def allprojects = subprojects + androidProject
+  def mavenDependencies = collectMavenDependencies(allprojects)
+
+  mavenDependencies.each { dep ->
+    project.dependencies {
+      compile group: dep.group, name: dep.name, version: dep.version
+    }
+  }
+
+  def allSourceSets = ['src/main/java']
+  def allResourcesSets = ['src/main/res']
+
+  allSourceSets.addAll(androidProject.android.sourceSets.main.java.srcDirs)
+  allResourcesSets.add(androidProject.android.sourceSets.main.res)
+
+  def testableVariant = androidProject.android.applicationVariants.find { variant ->
+    variant.name == robospockVarient
+  }
+  ["r/", "buildConfig/"].each {
+    allSourceSets.add(androidProject.buildDir.path + "/generated/source/" + it + testableVariant.dirName)
+  }
+
+  project.sourceSets.main {
+    java.srcDirs = allSourceSets
+    resources.srcDirs = allResourcesSets
+  }
+
+  Test test = project.tasks.create(org.robospock.RobospockAction.ROBOSPOCK_TASK_NAME, Test.class);
+  project.getTasks().getByName(JavaBasePlugin.CHECK_TASK_NAME).dependsOn(test);
+  test.setDescription("Runs the unit tests using Robospock.")
+  test.setGroup(JavaBasePlugin.VERIFICATION_GROUP)
+
+  test.workingDir = "${androidProject.projectDir}/src/main"
+
+  test.dependsOn(androidProject.getTasks().findByName("assemble${robospockVarient.capitalize()}"))
+
+  def variantCompileTask = androidProject.getTasks().findByName("compile${robospockVarient.capitalize()}Java")
+  tasks["compileTestJava"].dependsOn(variantCompileTask).name
+  tasks["compileTestGroovy"].dependsOn(variantCompileTask).name
+}
+
+//Plugin must be applied last and must use qualified name when applied from a gradle script
+apply plugin: org.robospock.RobospockPlugin
+

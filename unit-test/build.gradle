@@ -1,0 +1,18 @@
+apply plugin: 'groovy'
+
+jvmsrc{
+  packageName 'au.com.dius.android.template'
+}
+
+project.ext {
+  robospock = ":app"
+  robospockVarient = "debug"
+}
+
+evaluationDependsOn(project.ext.robospock)
+apply from: "${rootDir}/gradle/templates/roboSpock.gradle"
+
+dependencies {
+  testCompile 'junit:junit:4.10'
+  testCompile 'org.mockito:mockito-all:1.9.5'
+}
