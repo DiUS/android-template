@@ -2,8 +2,7 @@
 
     <application>
         <activity android:name="au.com.dius.android.template.MainActivity"
-            android:label="@string/title_activity_main"
-            >
+            android:label="@string/title_activity_main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

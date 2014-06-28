@@ -12,8 +12,13 @@ buildscript {
 apply plugin: 'android-sdk-manager'
 apply plugin: 'android'
 
+ext{
+  projectPackageName = "au.com.dius.android.template"
+}
+
 jvmsrc {
-  packageName "au.com.dius.android.template"
+  packageName projectPackageName
+  includeKeeps true
 }
 
 android {
@@ -24,7 +29,7 @@ android {
     targetSdkVersion 19
     versionCode 1
     versionName "0.1"
-    applicationId 'au.com.dius.android.template'
+    applicationId projectPackageName
   }
 
   buildTypes {

@@ -2,6 +2,7 @@ apply plugin: 'groovy'
 
 jvmsrc{
   packageName 'au.com.dius.android.template'
+  includeKeeps true
 }
 
 project.ext {
