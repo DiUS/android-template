@@ -8,6 +8,7 @@ An android template project with the following:
 - Spock unit testing
 - Junit unit tests
 - Robospock/Roboelectric unit tests
+- Jacoco code coverage report
 
 Fork it and save time on iteration zero! 
 
@@ -15,7 +16,7 @@ Prerequisites
 - Android studio  0.6.1 or later
 - ANDROID_HOME variable is set.
 
-## getting started
+### getting started
 - Fork or clone this repo
 - Run the following to pull in all external dependencies:
 
@@ -37,7 +38,7 @@ ext{
 __or__
 Delete everything under app/src and run `./gradlew createJvmSrcDirs -i` to recreate src dirs and packages
 
-## Adding build flavours/buildTypes
+### Adding build flavours/buildTypes
 When adding new flavours of build types the following command will automatically create the source and
 res directories.
 
@@ -45,15 +46,28 @@ res directories.
 ./gradlew createJvmSrcDirs -i
 ```
 
-## Build and run all tests 
+### Build and run all tests 
 - Runs both instrumented tests within 'app' and all unit tests in the unit-test project
 ```bash
 ./gradlew clean build -i
 ```
 
-## Unit Tests 
+## Unit Testing
+The 'unit-test' module facilitates for unit testing without an emulator (non-connected). 'Connected` 
+unit tests should live under <root>/app/src/androidTest.
+see: [Here](http://tools.android.com/tech-docs/new-build-system/user-guide)
+"This can contain unit tests, instrumentation tests, and later uiautomator tests"
+
+### Unit Tests 
 ```bash
 ./gradlew :unit-test:test
+
+```
+
+### Coverage 
+- After unit tests have been executed
+```bash
+./gradlew jacocoTestReport
 
 ```
 

@@ -34,7 +34,10 @@ android {
 
   buildTypes {
     release {}
-    debug {}
+    debug {
+       //Enable coverage on instrumentation tests
+      //testCoverageEnabled true
+    }
   }
 
   compileOptions {

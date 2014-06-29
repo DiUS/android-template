@@ -1,4 +1,5 @@
 apply plugin: 'groovy'
+apply plugin: 'jacoco'
 
 jvmsrc {
   packageName 'au.com.dius.android.template'
@@ -8,6 +9,7 @@ jvmsrc {
 project.ext {
   robospock = ":app"
   robospockVarient = "debug"
+  coverageExclusions = ['android/support/**', 'libcore/icu/**', '**/**/R.class']
 }
 
 evaluationDependsOn(project.ext.robospock)
@@ -17,3 +19,13 @@ dependencies {
   testCompile 'junit:junit:4.10'
   testCompile 'org.mockito:mockito-all:1.9.5'
 }
+
+robospock{
+  jacoco {
+    excludes = coverageExclusions
+    toolVersion = "0.7.1.201405082137"
+    destinationFile = file("$buildDir/jacoco/test.exec")
+    enabled true
+  }
+}
+
