@@ -9,6 +9,7 @@ An android template project with the following:
 - Junit unit tests
 - Robospock/Roboelectric unit tests
 - Jacoco code coverage report
+- Checkstyle
 
 Fork it and save time on iteration zero! 
 
