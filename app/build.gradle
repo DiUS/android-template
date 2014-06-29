@@ -11,6 +11,7 @@ buildscript {
 
 apply plugin: 'android-sdk-manager'
 apply plugin: 'android'
+apply plugin: 'checkstyle'
 
 ext{
   projectPackageName = "au.com.dius.android.template"
@@ -46,3 +47,16 @@ android {
   }
 
 }
+
+
+checkstyle {
+  configFile = file("${rootDir}/config/checkstyle/checkstyle.xml")
+}
+
+task checkstyle(type: Checkstyle) {
+  source 'src'
+  include '**/*.java'
+  exclude '**/generated/**'
+  classpath = files()
+}
+preBuild.dependsOn('checkstyle')

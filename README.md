@@ -43,7 +43,7 @@ When adding new flavours of build types the following command will automatically
 res directories.
 
 ```bash
-./gradlew createJvmSrcDirs -i
+./gradlew app:createJvmSrcDirs -i
 ```
 
 ### Build and run all tests 

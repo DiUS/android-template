@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC
+    "-//Puppy Crawl//DTD Check Configuration 1.2//EN"
+    "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
+
+<module name="Checker">
+
+  <module name="NewlineAtEndOfFile"/>
+
+  <module name="Translation"/>
+
+  <module name="FileLength">
+    <property name="max" value="300"/>
+  </module>
+
+  <!--
+    When overriding certain methods in the android class hierarchy, use this config to ensure
+    checkstyle doesn't complain about max method parameters
+  -->
+  <module name="SuppressionCommentFilter">
+    <property name="offCommentFormat" value="params off"/>
+    <property name="onCommentFormat" value="params on"/>
+    <property name="checkFormat" value="ParameterNumber"/>
+  </module>
+
+  <module name="TreeWalker">
+
+    <property name="tabWidth" value="2"/>
+
+    <module name="FileContentsHolder"/>
+
+    <module name="ConstantName"/>
+    <module name="LocalFinalVariableName"/>
+    <module name="LocalVariableName"/>
+    <module name="MemberName"/>
+    <module name="MethodName"/>
+    <module name="PackageName"/>
+    <module name="ParameterName"/>
+    <module name="StaticVariableName"/>
+    <module name="TypeName"/>
+
+    <module name="AvoidStarImport"/>
+    <module name="IllegalImport"/>
+    <module name="RedundantImport"/>
+    <module name="UnusedImports"/>
+
+    <module name="LineLength">
+      <property name="max" value="120"/>
+    </module>
+    <module name="MethodLength">
+      <property name="max" value="20"/>
+    </module>
+    <module name="ParameterNumber">
+      <property name="max" value="4"/>
+    </module>
+
+    <module name="EmptyForIteratorPad">
+      <property name="option" value="space"/>
+    </module>
+    <module name="MethodParamPad"/>
+    <module name="NoWhitespaceAfter"/>
+    <module name="NoWhitespaceBefore"/>
+    <module name="OperatorWrap"/>
+    <module name="ParenPad"/>
+    <module name="TypecastParenPad"/>
+    <module name="WhitespaceAfter"/>
+    <module name="WhitespaceAround"/>
+
+    <module name="ModifierOrder"/>
+    <module name="RedundantModifier"/>
+
+    <module name="AvoidNestedBlocks"/>
+    <module name="EmptyBlock"/>
+    <module name="LeftCurly"/>
+    <module name="NeedBraces"/>
+    <module name="RightCurly"/>
+
+    <module name="EmptyStatement"/>
+    <module name="EqualsHashCode"/>
+    <!--<module name="HiddenField"/>-->
+    <module name="IllegalInstantiation"/>
+    <module name="InnerAssignment"/>
+    <module name="MagicNumber"/>
+    <module name="MissingSwitchDefault"/>
+    <module name="RedundantThrows">
+      <!--
+        Had to add this suppression due to issue with failing to find ConversionException
+        class.
+      -->
+      <property name="suppressLoadErrors" value="true"/>
+    </module>
+    <module name="SimplifyBooleanExpression"/>
+    <module name="SimplifyBooleanReturn"/>
+
+    <module name="FinalClass"/>
+    <module name="InterfaceIsType"/>
+    <module name="VisibilityModifier"/>
+
+    <module name="TodoComment">
+      <property name="severity" value="ignore"/>
+      <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
+    </module>
+    <module name="UpperEll"/>
+
+    <module name="NPathComplexity">
+      <property name="max" value="20"/>
+    </module>
+
+    <module name="CyclomaticComplexity">
+      <property name="max" value="4"/>
+    </module>
+
+    <module name="Indentation">
+      <property name="caseIndent" value="2"/>
+      <property name="basicOffset" value="2"/>
+    </module>
+  </module>
+
+  <module name="SuppressWithNearbyCommentFilter">
+    <property name="commentFormat" value="IGNORE (\w+) FOR NEXT (\d+) LINES"/>
+    <property name="checkFormat" value="$1"/>
+    <property name="influenceFormat" value="$2"/>
+  </module>
+
+</module>
