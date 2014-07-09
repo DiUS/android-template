@@ -14,7 +14,7 @@ An android template project with the following:
 Fork it and save time on iteration zero! 
 
 Prerequisites
-- Android studio  0.6.1 or later
+- Android studio  0.8.1 preview or later
 - ANDROID_HOME variable is set.
 
 ### getting started
